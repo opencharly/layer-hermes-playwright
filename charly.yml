@@ -1,7 +1,7 @@
 version: 2026.232.0520
 hermes-playwright:
     candy:
-        version: 2026.144.1443
+        version: 2026.243.0100
         description: |
             Playwright Chromium browser baked into the Hermes image for headless browser automation
             Installs the Chromium browser via `npx playwright install chromium`
@@ -10,7 +10,7 @@ hermes-playwright:
             launch. Verifiable: the browser build dir + chrome executable land
             under the cache path, and the runtime libraries are in the rpm db.
         require:
-            - '@github.com/opencharly/pod-hermes:v2026.237.936'
+            - '@github.com/opencharly/pod-hermes:v2026.243.0516'
         env:
             PLAYWRIGHT_BROWSERS_PATH: "/tmp/.cache/ms-playwright"
         distro:
