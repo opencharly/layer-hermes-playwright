@@ -1,5 +1,7 @@
+version: 2026.232.0520
 hermes-playwright:
     candy:
+        version: 2026.243.1048
         description: |
             Playwright Chromium browser baked into the Hermes image for headless browser automation
             Installs the Chromium browser via `npx playwright install chromium`
@@ -8,7 +10,7 @@ hermes-playwright:
             launch. Verifiable: the browser build dir + chrome executable land
             under the cache path, and the runtime libraries are in the rpm db.
         require:
-            - '@github.com/opencharly/pod-hermes:v2026.243.2105'
+            - '@github.com/opencharly/pod-hermes:v2026.243.1016'
         env:
             PLAYWRIGHT_BROWSERS_PATH: "/tmp/.cache/ms-playwright"
         distro:
@@ -62,6 +64,7 @@ hermes-playwright:
               package:
                 package: alsa-lib
                 installed: true
+
 hermes-playwright-skill:
     skill:
         name: hermes-playwright
@@ -73,11 +76,11 @@ hermes-playwright-skill:
             MUST be invoked before building, deploying, configuring, or troubleshooting the hermes-playwright box.
         content: |-
             # hermes-playwright
-
+            
             Hermes AI agent with Playwright Chromium — web scraping, browser automation, and all headless agent capabilities.
-
+            
             ## Box Properties
-
+            
             | Property | Value |
             |----------|-------|
             | Base | fedora |
@@ -85,26 +88,26 @@ hermes-playwright-skill:
             | Platforms | linux/amd64 |
             | Security | shm_size: 1g |
             | Registry | ghcr.io/opencharly |
-
+            
             ## Full Candy Stack
-
+            
             Builds on the base `hermes` candy (not the hermes box), adding Playwright Chromium:
-
+            
             1. `fedora` base + `agent-forwarding` + `hermes` + `hermes-playwright` + `dbus` + `charly`
             2. `hermes-playwright` -- Playwright npm package + Chromium Headless Shell + system deps
-
+            
             ## Quick Start
-
+            
             ```bash
             charly box build hermes-playwright
             charly config hermes-playwright -e OLLAMA_API_KEY=your-key   # or OPENROUTER_API_KEY
             charly start hermes-playwright
             ```
-
+            
             The hermes entrypoint performs single-phase, first-start-only auto-configuration of LLM providers and MCP servers from env vars. See `/charly-hermes:hermes` for full provider configuration and MCP auto-discovery details.
-
+            
             ## Playwright Usage
-
+            
             ### From Node.js
             ```bash
             charly shell hermes-playwright -c "NODE_PATH=~/.npm-global/lib/node_modules node -e \"
@@ -118,31 +121,31 @@ hermes-playwright-skill:
             })();
             \""
             ```
-
+            
             ### Via npx CLI
             ```bash
             charly shell hermes-playwright -c "npx playwright --version"
             ```
-
+            
             ## Key Candies
-
+            
             - `/charly-hermes:hermes` -- core agent (inherited)
             - `/charly-hermes:hermes-playwright` -- Playwright + Chromium + system deps
-
+            
             ## Fedora Compatibility Note
-
+            
             Playwright's `--with-deps` flag does not support Fedora (falls back to Ubuntu's `apt-get`). The `hermes-playwright` candy works around this by:
             1. Installing Chromium's system library dependencies via rpm packages in `charly.yml`
             2. Installing only the browser binary via `npx playwright install chromium` in `task:`
-
+            
             The `PLAYWRIGHT_BROWSERS_PATH=/tmp/.cache/ms-playwright` env var is set automatically.
-
+            
             ## Related Boxes
-
+            
             - `/charly-hermes:hermes` -- full-featured standalone hermes (no browser, uses cross-container CDP)
-
+            
             ## Verification
-
+            
             After `charly start`:
             ```bash
             charly status hermes-playwright               # container running
@@ -162,12 +165,12 @@ hermes-playwright-skill:
             })();
             \""
             ```
-
+            
             ## When to Use This Skill
-
+            
             **MUST be invoked** when the task involves the hermes-playwright box, Hermes Agent with browser automation, or deploying hermes with Playwright. Invoke this skill BEFORE reading source code or launching Explore agents.
-
+            
             ## Related
-
+            
             - `/charly-image:image` — image family umbrella (`candy:` image entries — those carrying `base:`/`from:` — in `charly.yml`, build/validate/inspect/list)
             - `/charly-build:build` — the embedded build vocabulary (distros, builders, init-systems)
