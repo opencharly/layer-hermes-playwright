@@ -1,7 +1,5 @@
-version: 2026.232.0520
 hermes-playwright:
     candy:
-        version: 2026.243.1048
         description: |
             Playwright Chromium browser baked into the Hermes image for headless browser automation
             Installs the Chromium browser via `npx playwright install chromium`
